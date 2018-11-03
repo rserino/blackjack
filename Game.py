@@ -1,4 +1,5 @@
 from Deck import Deck
+from Hand import Hand
 
 class Game(object):
     def __init__(self):
@@ -6,18 +7,50 @@ class Game(object):
 
 
     def start_game(self):
-        deck = Deck()
-        hand = deck.deal()
-        hand.print_hand()
-        score = hand.calc_score()
-        Game.post_deal(score)
+        self.deck = Deck()
+        self.hand = self.deck.deal()
+        self.hand.print_hand()
+        score = self.hand.calc_score()
+        self.post_deal(score)
 
-
-
-    def post_deal(score):
+    def post_deal(self, score):
         if score == 21:
             while True:
-                print("Blackjack! Would you like to play again?")
+                print("Blackjack! \nWould you like to play again?")
+                again_response = input("(y/n) > ")
+                if again_response in ['y', 'Y']:
+                    game = Game()
+                    return game
+                elif again_response in ['n', 'N']:
+                    print("Ok bye!\n")
+                    exit()
+                else:
+                    ("You must enter either a 'Y' or an 'N'.")
+        if score < 21:
+            while True:
+                print("Would you like to hit or stay?")
+                hit_stay_response = input("h/s > ")
+                if hit_stay_response in ['h', 'H']:
+                    self.hand.append_hit(self.deck.hit())
+                    self.hand.print_hand()
+                    new_score = self.hand.calc_score()
+                    self.post_deal(new_score)
+                elif hit_stay_response in ['s', 'S']:
+                    print("Chicken!\n""Would you like to play again?")
+                    stay_response = input("(y/n) > ")
+                    if stay_response in ['y', 'Y']:
+                        game = Game()
+                        return game
+                    elif stay_response in ['n', 'N']:
+                        print("Ok bye!")
+                        exit()
+                    else:
+                        ("You must enter either a 'Y' or an 'N'.")
+                else:
+                    print("You must enter either an 'H' or a 'S'.")
+        if score > 21:
+            while True:
+                print("Bust! You Lose! \nWould you like to play again?")
                 again_response = input("(y/n) > ")
                 if again_response in ['y', 'Y']:
                     game = Game()
@@ -27,16 +60,6 @@ class Game(object):
                     exit()
                 else:
                     ("You must enter either a 'Y' or an 'N'.")
-        if score < 21:
-            while True:
-                print("Would you like to hit or stay?")
-                hit_stay_response = input("h/s > ")
-                if hit_stay_response in ['h', 'H']:
-                    pass
-                elif hit_stay_response in ['s', 'S']:
-                    pass
-                else:
-                    print("You must enter either an 'H' or a 'S'.")
 
 
 
