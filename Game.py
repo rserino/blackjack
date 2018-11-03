@@ -8,12 +8,24 @@ class Game(object):
 
     def start_game(self):
         self.deck = Deck()
+        self.hands = [self.deck.deal()]
+
         self.hand = self.deck.deal()
         self.hand.print_hand()
         score = self.hand.calc_score()
         self.post_deal(score)
 
-    def post_deal(self, score):
+    def get_hands(self):
+        to_return = ''
+        for hand in self.hands:
+            for card in hand.get_hand():
+                suit, value = card.get_card()
+                to_return += (str(value) + suit + ' ')
+
+        return to_return
+
+
+    def post_deal(score):
         if score == 21:
             while True:
                 print("Blackjack! \nWould you like to play again?")
