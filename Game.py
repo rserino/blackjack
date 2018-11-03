@@ -4,8 +4,9 @@ from Hand import Hand
 class Game(object):
     def __init__(self):
         self.deck = Deck()
-        self.hands = [self.deck.deal()]
-        self.hand = self.hands[0]
+        self.hands = [self.deck.deal(), self.deck.deal()]
+        self.player = self.hands[0]
+        self.dealer = self.hands[1]
 
     def get_hands(self):
         to_return = ''
@@ -21,36 +22,49 @@ class Game(object):
         again = True
 
         while again:
-            self.hand.print_hand()
-            score = self.hand.calc_score()
+            print("\nDealer hand:")
+            self.dealer.print_hand()
+            dealer_score = self.dealer.calc_score()
 
-            if score == 21:
+            print("\n\nPlayer hand:")
+            self.player.print_hand()
+            player_score = self.player.calc_score()
+
+            if player_score == 21:
                 print("Blackjack!")
+                # dealer_turn(dealer_score)
                 again = False
 
-            if score < 21:
-                print("Would you like to hit or stay?")
+            if player_score < 21:
+                print("\nWould you like to hit or stay?")
                 hit_stay_response = Game.get_validated_input(
                     "h/s > ",
                     ['h', 's']
                 )
 
                 if hit_stay_response.lower() == 'h':
-                    self.hand.append_hit(self.deck.hit())
+                    self.player.append_hit(self.deck.hit())
                 else:
-                    print('Stayed.')
+                    print('\nStayed.')
                     again = False
 
-            if score > 21:
-                print("Bust! You Lose!")
+            if player_score > 21:
+                print("\nBust! You Lose!")
                 again = False
 
         print("Bye!")
-    
+
+    def dealer_turn(self, dealer_score):
+        while dealer_score < 21:
+            self.dealer.append_hit(self.deck.hit())
+            if dealer_score == 21:
+                print("\n Dealer Blackjack! You Lose!")
+            if dealer_score > 21:
+                print("\n Dealer Bust! You win!")
+
+
     def get_validated_input(message, responses):
         while True:
             response = input(message)
             if response in responses:
                 return response
-
-

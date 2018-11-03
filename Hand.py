@@ -9,7 +9,7 @@ class Hand(object):
         self.hand.append(new_card)
 
     def print_hand(self):
-        print("\n")
+        # print("\n")
         for card in self.hand:
             card_suit, card_value = card.get_card()
             print(card_value, card_suit, ' ', end = '', sep = '')
