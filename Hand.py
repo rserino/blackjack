@@ -26,4 +26,5 @@ class Hand(object):
                 card_value = 1
             total_value += card_value
         print(f"Your score is {total_value}")
+
         return total_value
