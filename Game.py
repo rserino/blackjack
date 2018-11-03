@@ -30,9 +30,13 @@ class Game(object):
             self.player.print_hand()
             player_score = self.player.calc_score()
 
+            if dealer_score == 21:
+                print("\nDealer Blackjack! You Lose!")
+                again = False
+
             if player_score == 21:
                 print("Blackjack!")
-
+                self.dealer_turn(dealer_score)
                 again = False
 
             if player_score < 21:
@@ -62,9 +66,9 @@ class Game(object):
             self.dealer.print_hand()
             self.dealer_turn(self.dealer.calc_score())
         if dealer_score == 21:
-            print("\n Dealer Blackjack! You Lose!")
+            print("\nDealer Blackjack! You Lose!")
         if dealer_score > 21:
-            print("\n Dealer Bust! You win!")
+            print("\nDealer Bust! You win!")
 
 
     def get_validated_input(message, responses):
