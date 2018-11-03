@@ -25,7 +25,7 @@ class Game(object):
         return to_return
 
 
-    def post_deal(score):
+    def post_deal(self, score):
         if score == 21:
             while True:
                 print("Blackjack! \nWould you like to play again?")
@@ -54,7 +54,7 @@ class Game(object):
                         game = Game()
                         return game
                     elif stay_response in ['n', 'N']:
-                        print("Ok bye!")
+                        print("Ok bye!\n")
                         exit()
                     else:
                         ("You must enter either a 'Y' or an 'N'.")
@@ -72,10 +72,3 @@ class Game(object):
                     exit()
                 else:
                     ("You must enter either a 'Y' or an 'N'.")
-
-
-
-    # def print_card(self):
-    #     for card in self:
-    #         card_suit, card_value = card.get_card()
-    #         print(card_value, card_suit, ' ', end = '', sep = '')
