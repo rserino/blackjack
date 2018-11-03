@@ -1,6 +1,7 @@
 from Game import Game
 
 game = Game()
+game.start()
 # deck = Deck()
 # hand = deck.deal()
 # hand.print_hand()
