@@ -7,16 +7,13 @@ class Hand(object):
     def get_hand(self):
         return self.hand
 
+    def append_hit(self, new_card):
+        self.hand.append(new_card)
+
     def print_hand(self):
         for card in self.hand:
             card_suit, card_value = card.get_card()
-            print("┌───────┐")
-            print(f"| {card_value}     |")
-            print("|       |")
-            print(f"|   {card_suit}   |")
-            print("|       |")
-            print(f"|     {card_value} |")
-            print("└───────┘")
+            print(card_value, card_suit, ' ', end = '', sep = '')
 
     def calc_score(self):
         total_value = 0
@@ -31,6 +28,7 @@ class Hand(object):
             total_value += card_value
         print(f"Your score is {total_value}")
         return total_value
+
 
 class Deck(object):
     def __init__(self):
@@ -57,6 +55,10 @@ class Deck(object):
 
         return Hand([card_one, card_two])
 
+    def hit(self):
+        new_card = self.deck.pop(0)
+        return new_card
+
 class Card(object):
     def __init__(self, suit, value):
         self.suit = suit
@@ -65,6 +67,11 @@ class Card(object):
     def get_card(self):
         return self.suit, self.value
 
+    # def print_card(self):
+    #     for card in self:
+    #         card_suit, card_value = card.get_card()
+    #         print(card_value, card_suit, ' ', end = '', sep = '')
+
 
 def main():
 
@@ -72,7 +79,11 @@ def main():
     hand = deck.deal()
     hand.print_hand()
     hand.calc_score()
-
+    new_card = deck.hit()
+    hand.append_hit(new_card)
+    hand.print_hand()
+    hand.calc_score()
+    print(len(deck.get_deck()))
 
 
 main()
