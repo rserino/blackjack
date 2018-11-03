@@ -8,16 +8,6 @@ class Game(object):
         self.player = self.hands[0]
         self.dealer = self.hands[1]
 
-    def get_hands(self):
-        to_return = ''
-        for hand in self.hands:
-            for card in hand.get_hand():
-                suit, value = card.get_card()
-                to_return += (str(value) + suit + ' ')
-
-        return to_return
-
-
     def start(self):
         again = True
 

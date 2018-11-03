@@ -5,3 +5,6 @@ class Card(object):
 
     def get_card(self):
         return self.suit, self.value
+
+    def to_string(self):
+        return str(self.value) + self.suit + ' '

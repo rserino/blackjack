@@ -5,6 +5,14 @@ class Hand(object):
     def get_hand(self):
         return self.hand
 
+    def to_string(self):
+        to_return = ''
+
+        for card in self.hand:
+            to_return += card.to_string()
+
+        return to_return
+
     def append_hit(self, new_card):
         self.hand.append(new_card)
 
