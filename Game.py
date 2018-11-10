@@ -20,14 +20,16 @@ class Game(object):
             self.player.print_hand()
             player_score = self.player.calc_score()
 
-            if dealer_score == 21:
-                print("\nDealer Blackjack! You Lose!")
+            if player_score == 21 and len(self.player.get_hand()) == 2:
+                print("Blackjack, you win!")
                 again = False
-                break
 
-            if player_score == 21:
-                print("Blackjack!")
-                self.dealer_turn(dealer_score)
+            if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score < 18:
+                self.dealer_turn(dealer_score, player_score)
+                again = False
+
+            if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score > 18 and dealer_score < 21:
+                print("You win!")
                 again = False
 
             if player_score < 21:
@@ -41,7 +43,7 @@ class Game(object):
                     self.player.append_hit(self.deck.hit())
                 else:
                     print('\nStayed.')
-                    self.dealer_turn(dealer_score)
+                    self.dealer_turn(dealer_score, player_score)
                     again = False
 
             if player_score > 21:
@@ -50,14 +52,25 @@ class Game(object):
 
         print("Bye!")
 
-    def dealer_turn(self, dealer_score):
-        if dealer_score < 21:
+    def dealer_turn(self, dealer_score, player_score):
+        if dealer_score < 17 and dealer_score <= player_score:
             self.dealer.append_hit(self.deck.hit())
             print("\nDealer hand:")
             self.dealer.print_hand()
-            self.dealer_turn(self.dealer.calc_score())
-        if dealer_score == 21:
-            print("\nDealer Blackjack! You Lose!")
+            self.dealer_turn(self.dealer.calc_score(), player_score)
+
+        if dealer_score >=17 and dealer_score < player_score:
+            print("\nYou win!")
+        #
+        if dealer_score >= 17 and dealer_score < 21 and dealer_score > player_score:
+            print("\nDealer wins!")
+        #
+        if dealer_score == player_score:
+            print("\nPush!")
+        #
+        if dealer_score < 21 and dealer_score > player_score:
+            print("\nDealer wins!")
+        #
         if dealer_score > 21:
             print("\nDealer Bust! You win!")
 
