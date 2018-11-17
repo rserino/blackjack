@@ -21,7 +21,8 @@ class Game(object):
             player_score = self.player.calc_score()
 
             if player_score == 21 and len(self.player.get_hand()) == 2:
-                print("Blackjack, you win!")
+                print("Blackjack!")
+                player_win = True
                 again = False
 
             if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score < 18:
@@ -29,7 +30,8 @@ class Game(object):
                 again = False
 
             if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score > 18 and dealer_score < 21:
-                print("You win!")
+                # print("You win!")
+                player_win = True
                 again = False
 
             if player_score < 21:
@@ -43,16 +45,22 @@ class Game(object):
                     self.player.append_hit(self.deck.hit())
                 else:
                     print('\nStayed.')
-                    self.dealer_turn(dealer_score, player_score)
+                    player_win = self.dealer_turn(dealer_score, player_score)
                     again = False
 
             if player_score > 21:
-                print("\nBust! You Lose!")
+                print("\nBust!")
+                player_win = False
                 again = False
 
-        print("Bye!")
+        if player_win == True:
+            print("\nYou win!")
+        if player_win == False:
+            print("\nYou lose!")
+        print("Bye!\n")
 
     def dealer_turn(self, dealer_score, player_score):
+        player_win = False
         if dealer_score < 17 and dealer_score <= player_score:
             self.dealer.append_hit(self.deck.hit())
             print("\nDealer hand:")
@@ -60,19 +68,26 @@ class Game(object):
             self.dealer_turn(self.dealer.calc_score(), player_score)
 
         if dealer_score >=17 and dealer_score < player_score:
-            print("\nYou win!")
-        #
+            player_win = True
+            # print("\nYou win!")
+
         if dealer_score >= 17 and dealer_score < 21 and dealer_score > player_score:
-            print("\nDealer wins!")
-        #
+            player_win = False
+            # print("\nDealer wins!")
+
         if dealer_score == player_score:
+            player_win = False
             print("\nPush!")
-        #
+
         if dealer_score < 21 and dealer_score > player_score:
-            print("\nDealer wins!")
-        #
+            player_win = False
+            # print("\nDealer wins!")
+
         if dealer_score > 21:
-            print("\nDealer Bust! You win!")
+            print("\nDealer Bust!")
+            player_win = True
+
+        return player_win
 
 
     def get_validated_input(message, responses):
