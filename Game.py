@@ -23,6 +23,7 @@ class Game(object):
             if dealer_score == 21:
                 print("\nDealer Blackjack! You Lose!")
                 again = False
+                break
 
             if player_score == 21:
                 print("Blackjack!")
