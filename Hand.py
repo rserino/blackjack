@@ -28,7 +28,7 @@ class Hand(object):
             card_suit, card_value = card.get_card()
             deal_hand.append(card_value)
             deal_hand.append(card_suit)
-        print("??", ' ', deal_hand[2], deal_hand[3], sep = '')
+        print("░", ' ', deal_hand[2], deal_hand[3], sep = '')
 
 
     def calc_score(self):

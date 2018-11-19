@@ -18,12 +18,10 @@ class Game(object):
             if hit_stay_response.lower() == 'h':
                 print("\nDealer hand:")
                 self.dealer.print_dealer_hand()
-                # self.dealer.print_hand()
                 dealer_score = self.dealer.calc_score()
             else:
                 print("\nDealer hand:")
                 self.dealer.print_hand()
-                # self.dealer.print_hand()
                 dealer_score = self.dealer.calc_score()
 
             print("\n\nPlayer hand:")
@@ -36,6 +34,7 @@ class Game(object):
                 again = False
 
             if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score < 18:
+                print("21! Dealers turn.")
                 player_win = self.dealer_turn(dealer_score, player_score)
                 again = False
 
@@ -54,6 +53,9 @@ class Game(object):
                     self.player.append_hit(self.deck.hit())
                 else:
                     print('\nStayed.')
+                    print("\nDealer hand:")
+                    self.dealer.print_hand()
+                    dealer_score = self.dealer.print_score()
                     player_win = self.dealer_turn(dealer_score, player_score)
                     again = False
 
