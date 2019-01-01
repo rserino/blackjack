@@ -29,17 +29,17 @@ class Game(object):
             player_score = self.player.print_score()
 
             if player_score == 21 and len(self.player.get_hand()) == 2:
-                print("Blackjack!")
+                print("\nBlackjack!")
                 player_win = 1
                 again = False
 
             if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score < 18:
-                print("21! Dealers turn.")
+                print("\n21! Dealer turn.")
                 player_win = self.dealer_turn(dealer_score, player_score)
                 again = False
 
-            if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score > 18 and dealer_score < 21:
-                player_win = 1
+            if player_score == 21 and len(self.player.get_hand()) > 2 and dealer_score > 18 and dealer_score <= 21:
+                player_win = 3
                 again = False
 
             if player_score < 21:
