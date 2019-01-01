@@ -22,7 +22,29 @@ class Hand(object):
             card_suit, card_value = card.get_card()
             print(card_value, card_suit, ' ', end = '', sep = '')
 
+    def print_dealer_hand(self):
+        deal_hand = []
+        for card in self.hand:
+            card_suit, card_value = card.get_card()
+            deal_hand.append(card_value)
+            deal_hand.append(card_suit)
+        print("░", ' ', deal_hand[2], deal_hand[3], sep = '')
+
+
     def calc_score(self):
+        total_value = 0
+        for card in self.hand:
+            card_suit, card_value = card.get_card()
+            if card_value in ['J', 'Q', 'K']:
+                card_value = 10
+            if card_value == 'A' and total_value < 11:
+                card_value = 11
+            if card_value == 'A' and total_value >= 11:
+                card_value = 1
+            total_value += card_value
+        return total_value
+
+    def print_score(self):
         total_value = 0
         for card in self.hand:
             card_suit, card_value = card.get_card()
