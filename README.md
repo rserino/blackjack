@@ -15,4 +15,4 @@ pip install -r requirements.txt
 From the root project directory:
 * `python blackjack/DiscordBot.py` to run the Discord bot
 * `python blackjack/blackjack.py` to run the blackjack app locally
-* `python -m unittest tests/test_Card.py` to run `test_card.py` tests
+* `python -m unittest` to run unit tests
