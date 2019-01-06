@@ -31,30 +31,19 @@ class Hand(object):
         print("░", ' ', deal_hand[2], deal_hand[3], sep = '')
 
 
-    def calc_score(self):
+    def get_score(self):
         total_value = 0
-        for card in self.hand:
-            card_suit, card_value = card.get_card()
-            if card_value in ['J', 'Q', 'K']:
-                card_value = 10
-            if card_value == 'A' and total_value < 11:
-                card_value = 11
-            if card_value == 'A' and total_value >= 11:
-                card_value = 1
-            total_value += card_value
-        return total_value
 
-    def print_score(self):
-        total_value = 0
         for card in self.hand:
             card_suit, card_value = card.get_card()
+    
             if card_value in ['J', 'Q', 'K']:
                 card_value = 10
             if card_value == 'A' and total_value < 11:
                 card_value = 11
             if card_value == 'A' and total_value >= 11:
                 card_value = 1
+    
             total_value += card_value
-        print(f"Your score is {total_value}")
 
         return total_value
