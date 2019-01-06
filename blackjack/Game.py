@@ -10,14 +10,13 @@ class Game(object):
 
   def run(self):
     self.player_turn()
-    self.dealer_turn(self.dealer.get_score(), self.player.get_score())
-    self.evaluate_result(self.dealer.get_score(), self.player.get_score())
+    self.dealer_turn()
+    self.evaluate_result()
 
   def player_turn(self):
     player_choice = True
 
     while player_choice:
-
       self.print_current_hands()
 
       if self.player.get_score() < 21: 
@@ -26,15 +25,18 @@ class Game(object):
           "h/s > ",
           ['h', 's']
         )
+
         if hit_stay_response.lower() == 'h':
           self.player.append_hit(self.deck.hit())
         else:
           print("\nStayed")
           player_choice = False
+
       elif self.player.get_score() == 21:
         if len(self.player.get_hand()) == 2:
           print("\nBlackjack!")
           player_choice = False
+
         elif len(self.player.get_hand()) > 2:
           if self.dealer.get_score() < 18:
             print("\n21! Dealer turn.")
@@ -45,7 +47,10 @@ class Game(object):
         print("\nBust!")
         player_choice = False
 
-  def dealer_turn(self, dealer_score, player_score):
+  def dealer_turn(self):
+    player_score = self.player.get_score()
+    dealer_score = self.dealer.get_score()
+
     if player_score >= 21 and len(self.player.get_hand()) > 2:
       return
 
@@ -54,14 +59,18 @@ class Game(object):
       self.dealer.append_hit(self.deck.hit())
       print("\nDealer hand:")
       self.dealer.print_hand()
-      dealer_score = print(f"Dealer score is {self.dealer.get_score()}")
-      self.dealer_turn(self.dealer.get_score(), player_score)
+      print(f"Dealer score is {dealer_score}")
+      self.dealer_turn()
 
-  def evaluate_result(self, dealer_score, player_score):
+  def evaluate_result(self):
+    player_score = self.player.get_score()
+    dealer_score = self.dealer.get_score()
+
     self.dealer.print_hand()
-    print(self.dealer.get_score())
+    print(dealer_score)
     self.player.print_hand()
-    print(self.player.get_score())
+    print(player_score)
+
     if player_score == 21 and len(self.player.get_hand()) == 2:
       print("\nYou win!\n")
     elif dealer_score > 21:
