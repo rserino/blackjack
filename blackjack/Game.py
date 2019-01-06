@@ -8,64 +8,47 @@ class Game(object):
     self.player = self.hands[0]
     self.dealer = self.hands[1]
 
-  def start(self):
-    again = True
-    hit_stay_response = 'h'
+  def run(self):
+    self.player_turn()
+    self.dealer_turn(self.dealer.get_score(), self.player.get_score())
+    self.evaluate_result(self.dealer.get_score(), self.player.get_score())
 
-    while again:
-      if hit_stay_response.lower() == 'h':
-        print("\nDealer hand:")
-        self.dealer.print_dealer_hand()
-        dealer_score = self.dealer.get_score()
-      else:
-        print("\nDealer hand:")
-        self.dealer.print_hand()
-        dealer_score = self.dealer.get_score()
+  def player_turn(self):
+    player_choice = True
 
-      print("\n\nPlayer hand:")
-      self.player.print_hand()
-      player_score = self.player.get_score()
-      print(f"Your score is {player_score}")
+    while player_choice:
 
-      if player_score == 21:
-        if len(self.player.get_hand()) == 2:
-          print("\nBlackjack!")
-          again = False
+      self.print_current_hands()
 
-        if len(self.player.get_hand()) > 2:
-          if dealer_score < 18:
-            print("\n21! Dealer turn.")
-            self.dealer_turn(dealer_score, player_score)
-            again = False
-
-          if dealer_score > 18 and dealer_score <= 21:
-            player_win = 3
-            again = False
-
-      if player_score < 21:
+      if self.player.get_score() < 21: 
         print("\nWould you like to hit or stay?")
         hit_stay_response = Game.get_validated_input(
           "h/s > ",
           ['h', 's']
         )
-
-      if hit_stay_response.lower() == 'h':
-        self.player.append_hit(self.deck.hit())
+        if hit_stay_response.lower() == 'h':
+          self.player.append_hit(self.deck.hit())
+        else:
+          print("\nStayed")
+          player_choice = False
+      elif self.player.get_score() == 21:
+        if len(self.player.get_hand()) == 2:
+          print("\nBlackjack!")
+          player_choice = False
+        elif len(self.player.get_hand()) > 2:
+          if self.dealer.get_score() < 18:
+            print("\n21! Dealer turn.")
+            player_choice = False
+          elif self.dealer.get_score() > 18 and self.dealer.get_score() <= 21:
+            player_choice = False
       else:
-        print('\nStayed.')
-        print("\nDealer hand:")
-        self.dealer.print_hand()
-        dealer_score = self.dealer.get_score()
-        print(f"Dealer score is {dealer_score}")
-        player_win = self.dealer_turn(dealer_score, player_score)
-        again = False
-
-      if player_score > 21:
         print("\nBust!")
-        player_win = 2
-        again = False
+        player_choice = False
 
   def dealer_turn(self, dealer_score, player_score):
+    if player_score >= 21 and len(self.player.get_hand()) > 2:
+      return
+
     if dealer_score < 17 and dealer_score <= player_score:
       print("\nDealer hits.")
       self.dealer.append_hit(self.deck.hit())
@@ -73,14 +56,18 @@ class Game(object):
       self.dealer.print_hand()
       dealer_score = print(f"Dealer score is {self.dealer.get_score()}")
       self.dealer_turn(self.dealer.get_score(), player_score)
-    else:
-      Game.evaluate_result(dealer_score, player_score)
 
-  def evaluate_result(dealer_score, player_score):
-    if dealer_score > 21:
+  def evaluate_result(self, dealer_score, player_score):
+    self.dealer.print_hand()
+    print(self.dealer.get_score())
+    self.player.print_hand()
+    print(self.player.get_score())
+    if player_score == 21 and len(self.player.get_hand()) == 2:
+      print("\nYou win!\n")
+    elif dealer_score > 21:
       print("\nDealer Bust! You win!\n")
     else:
-      if dealer_score > player_score:
+      if dealer_score > player_score or player_score > 21:
         print("\nYou lose!\n")
       elif dealer_score < player_score:
         print("\nYou win!\n")
@@ -92,3 +79,11 @@ class Game(object):
       response = input(message)
       if response in responses:
         return response
+
+  def print_current_hands(self):
+    print("\nDealer hand:")
+    self.dealer.print_dealer_hand()
+
+    print("\n\nPlayer hand:")
+    self.player.print_hand()
+    print(f"Your score is {self.player.get_score()}")
