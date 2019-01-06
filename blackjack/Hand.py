@@ -7,21 +7,16 @@ class Hand(object):
   def get_hand(self):
     return self.hand
 
+  def append_hit(self, new_card):
+    self.hand.append(new_card)
+
   def to_string(self):
     to_return = ''
 
     for card in self.hand:
       to_return += card.to_string()
 
-    return to_return
-
-  def append_hit(self, new_card):
-    self.hand.append(new_card)
-
-  def print_hand(self):
-    for card in self.hand:
-      value, suit = card.get_card()
-      print(value, suit, ' ', end = '', sep = '')
+    return to_return.rstrip() + '; ' + str(self.get_score())
 
   def print_dealer_hand(self):
     deal_hand = []
@@ -31,7 +26,7 @@ class Hand(object):
       deal_hand.append(value)
       deal_hand.append(suit)
 
-    print('░ ', deal_hand[2], deal_hand[3], sep = '')
+    print('Dealer: ░ ', deal_hand[2], deal_hand[3], sep = '')
 
   def get_score(self):
     non_aces = list(filter(lambda card : card.get_card()[0] != 'A', self.hand))
