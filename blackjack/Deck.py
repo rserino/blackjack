@@ -17,6 +17,7 @@ class Deck(object):
         for suit in suits:
             for value in values:
                 deck.append(Card(suit, value))
+
         return deck
 
     def deal(self):
@@ -28,5 +29,4 @@ class Deck(object):
         return Hand([card_one, card_two])
 
     def hit(self):
-        new_card = self.deck.pop(0)
-        return new_card
+        return self.deck.pop(0)
