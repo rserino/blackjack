@@ -16,7 +16,7 @@ class Deck(object):
 
         for suit in suits:
             for value in values:
-                deck.append(Card(suit, value))
+                deck.append(Card(value, suit))
 
         return deck
 

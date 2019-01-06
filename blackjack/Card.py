@@ -1,10 +1,10 @@
 class Card(object):
-    def __init__(self, suit, value):
-        self.suit = suit
-        self.value = value
+    def __init__(self, value, suit):
+      self.value = value
+      self.suit = suit
 
     def get_card(self):
-        return self.suit, self.value
+      return self.value, self.suit
 
     def to_string(self):
-        return str(self.value) + self.suit + ' '
+      return str(self.value) + self.suit + ' '
