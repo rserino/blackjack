@@ -1,3 +1,5 @@
+import itertools
+
 class Hand(object):
   def __init__(self, hand):
     self.hand = hand
@@ -32,18 +34,16 @@ class Hand(object):
     print('░ ', deal_hand[2], deal_hand[3], sep = '')
 
   def get_score(self):
-    total_value = 0
+    non_aces = list(filter(lambda card : card.get_card()[0] != 'A', self.hand))
+    num_aces = len(self.hand) - len(non_aces)
+    total_score = sum([card.value if card.value not in ['J', 'Q', 'K'] else 10 for card in non_aces])
 
-    for card in self.hand:
-      value, suit = card.get_card()
+    best_score = total_score
 
-      if value in ['J', 'Q', 'K']:
-        value = 10
-      if value == 'A' and total_value < 11:
-        value = 11
-      if value == 'A' and total_value >= 11:
-        value = 1
+    for combination in itertools.product(*[[1, 11] for i in range (num_aces)]):
+      potential_score = sum(combination) + total_score
 
-      total_value += value
+      if potential_score <= 21 and potential_score > best_score:
+        best_score = potential_score
 
-    return total_value
+    return total_score + num_aces if best_score == total_score else best_score

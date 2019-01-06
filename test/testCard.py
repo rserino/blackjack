@@ -1,7 +1,7 @@
 import unittest
 from blackjack.Card import Card
 
-class TestCardClass(unittest.TestCase):
+class TestCard(unittest.TestCase):
   def setUp(self):
     self.card = Card(5, '♥')
 
