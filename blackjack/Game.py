@@ -8,7 +8,6 @@ class Game(object):
     self.player = self.hands[0]
     self.dealer = self.hands[1]
 
-
   def start(self):
     again = True
     hit_stay_response = 'h'
