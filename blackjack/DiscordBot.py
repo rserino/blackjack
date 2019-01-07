@@ -16,10 +16,10 @@ async def on_message(message):
     global ongoing_game
     global game
     global hit_lock
-
+ 
     if message.author == client.user:
         return
-
+ 
     if message.content.startswith('!blackjack'):
         ongoing_game = True
         msg = '{0.author.mention} ♥♦♣♠ Welcome to Blackjack ♠♣♦♥'.format(message)
