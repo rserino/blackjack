@@ -1,9 +1,8 @@
-from Deck import Deck
-from Hand import Hand
+import classes
 
 class Game(object):
   def __init__(self):
-    self.deck = Deck()
+    self.deck = classes.Deck()
     self.hands = [self.deck.deal(), self.deck.deal()]
     self.player = self.hands[0]
     self.dealer = self.hands[1]

@@ -1,6 +1,6 @@
-from .Card import Card
-from .Hand import Hand
 import random
+
+import classes
 
 class Deck(object):
   def __init__(self):
@@ -16,7 +16,7 @@ class Deck(object):
 
     for suit in suits:
       for value in values:
-        deck.append(Card(value, suit))
+        deck.append(classes.Card(value, suit))
 
     return deck
 
@@ -26,7 +26,7 @@ class Deck(object):
     card_one = self.deck.pop(0)
     card_two = self.deck.pop(0)
 
-    return Hand([card_one, card_two])
+    return classes.Hand([card_one, card_two])
 
   def hit(self):
     return self.deck.pop(0)
