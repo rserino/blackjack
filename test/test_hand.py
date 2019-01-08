@@ -1,6 +1,7 @@
 import unittest
-from blackjack.Hand import Hand
-from blackjack.Card import Card
+
+from classes.hand import Hand
+from classes.card import Card
 
 class TestHand(unittest.TestCase):
   def test_vanilla(self):
