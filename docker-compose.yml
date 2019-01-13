@@ -1,0 +1,25 @@
+version: "2"
+services:
+  game:
+    container_name: game
+    restart: always
+    build: ./game
+    ports:
+      - "5001:5001"
+  api:
+    container_name: api
+    restart: always
+    build: ./backend
+    ports:
+      - "5000:5000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongodata:
