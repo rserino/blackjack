@@ -1,0 +1,40 @@
+version: "2"
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  game:
+    container_name: game
+    depends_on:
+      - api
+    networks:
+      - app
+    restart: always
+    build: ./game
+    ports:
+      - "5001:5001"
+  api:
+    container_name: api
+    depends_on:
+      - mongo
+    networks:
+      - app
+    restart: always
+    build: ./backend
+    ports:
+      - "5000:5000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    networks:
+      - app
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongodata:

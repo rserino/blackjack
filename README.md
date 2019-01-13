@@ -12,7 +12,11 @@ Install dependencies by issuing the command
 pip install -r requirements.txt
 ```
 
-## Run
-From the root project directory:
+## Run in console
+From the `/game` directory:
 * `python main.py` to run blackjack in the terminal
 * `python -m unittest` to run unit tests
+
+## Run with Docker
+* `docker-compose build`
+* `docker-compose up`

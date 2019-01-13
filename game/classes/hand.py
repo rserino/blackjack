@@ -18,6 +18,9 @@ class Hand(object):
 
     return to_return.rstrip() + '; ' + str(self.get_score())
 
+  def dealer_hand_to_string(self):
+    return f'░░ {self.hand[1].value}{self.hand[1].suit}'
+
   def print_dealer_hand(self):
     deal_hand = []
 
