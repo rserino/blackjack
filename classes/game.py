@@ -48,7 +48,7 @@ class Game(object):
     player_score = self.player.get_score()
     dealer_score = self.dealer.get_score()
 
-    if player_score >= 21 and len(self.player.get_hand()) > 2:
+    if player_score >= 21 and len(self.player.get_hand()) >= 2:
       return
 
     if dealer_score < 17 and dealer_score <= player_score:
@@ -60,7 +60,7 @@ class Game(object):
     dealer_score = self.dealer.get_score()
 
     if player_score == 21 and len(self.player.get_hand()) == 2:
-      return 'You win!'
+      return 'Blackjack! You win!'
     elif dealer_score > 21:
       return 'Dealer Bust! You win!'
     else:
