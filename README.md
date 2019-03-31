@@ -1,5 +1,5 @@
 # blackjack
-[![Build Status](https://travis-ci.org/rserino/blackjack.svg?branch=develop)](https://travis-ci.org/rserino/blackjack)
+[![Build Status](https://travis-ci.org/rserino/blackjack-cli.svg?branch=master)
 ## Setup
 Create a `.env` file in the project's root directory and set
 ```
