@@ -40,13 +40,9 @@ class Game(object):
     player_score = self.player.get_score()
     dealer_score = self.dealer.get_score()
 
-    if player_score > 21 or dealer_score >= 21:
-      return
-    elif dealer_score <= player_score and dealer_score <= 16 and dealer_score < 21:
+    if dealer_score <= player_score and dealer_score <= 16 and player_score <= 21:
       self.dealer.append_hit(self.deck.hit())
       self.dealer_turn()
-    else:
-      return
 
   def get_result(self):
     player_score = self.player.get_score()
