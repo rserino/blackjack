@@ -33,14 +33,6 @@ class Game(object):
         else:
           player_choice = False
           print()
-      elif self.player.get_score() == 21:
-        if len(self.player.get_hand()) == 2:
-          player_choice = False
-        elif len(self.player.get_hand()) > 2:
-          if self.dealer.get_score() < 18:
-            player_choice = False
-          elif self.dealer.get_score() > 18 and self.dealer.get_score() <= 21:
-            player_choice = False
       else:
         player_choice = False
 
@@ -48,24 +40,26 @@ class Game(object):
     player_score = self.player.get_score()
     dealer_score = self.dealer.get_score()
 
-    if player_score >= 21 and len(self.player.get_hand()) >= 2:
+    if player_score > 21 or dealer_score >= 21:
       return
-
-    if dealer_score < 17 and dealer_score <= player_score:
+    elif dealer_score <= player_score and dealer_score <= 16 and dealer_score < 21:
       self.dealer.append_hit(self.deck.hit())
       self.dealer_turn()
+    else:
+      return
 
   def get_result(self):
     player_score = self.player.get_score()
     dealer_score = self.dealer.get_score()
 
-    if player_score == 21 and len(self.player.get_hand()) == 2:
-      return 'Blackjack! You win!'
-    elif dealer_score > 21:
+
+    if dealer_score > 21:
       return 'Dealer Bust! You win!'
     else:
-      if dealer_score > player_score or player_score > 21:
+      if dealer_score > player_score:
         return 'You lose!'
+      elif player_score > 21:
+        return 'Bust! You lose!'
       elif dealer_score < player_score:
         return 'You win!'
       else:
